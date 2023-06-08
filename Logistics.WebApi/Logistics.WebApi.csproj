@@ -15,8 +15,20 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Infrastructure\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Logistics.Infrastructure\Logistics.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
