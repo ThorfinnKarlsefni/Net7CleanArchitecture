@@ -1,32 +1,46 @@
-﻿using Logistics.Infrastructure.Data;
+﻿using FluentValidation.AspNetCore;
+using Logistics.Infrastructure.Data;
+using Logistics.Infrastructure.Settings;
 using Logistics.WebApi.Infrastructure.Helpers;
+using Logistics.WebApi.Utility.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting.Internal;
 
 namespace Logistics.WebApi
 {
     internal class Startup
     {
-        public IConfiguration Configuration { get; }
-        public IWebHostEnvironment HostEnvironment { get; }
+        public IConfiguration _configuration { get; }
+        public IWebHostEnvironment _hostEnvironment { get; }
+        public IAppSettings _settings { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
-            Configuration = configuration;
-            HostEnvironment = webHostEnvironment;
+            _configuration = configuration;
+            _hostEnvironment = webHostEnvironment;
+            _settings = new AppSettings(configuration);
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddDbContext<XhwtDbContext>(options =>
-               options.UseNpgsql(Configuration.GetConnectionString("DbContext")));
+               options.UseNpgsql(_configuration.GetConnectionString("DbContext")));
+
+
+            services.AddCustomRepositories();
+
+            services.AddCustomServices();
+
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
             services.AddControllers();
+
             services.AddEndpointsApiExplorer();
 
-            if (HostEnvironment.IsDevelopment())
+            IdentityHelper.ConfigureService(services);
+            AuthenticationHelper.ConfigureService(services, _settings.Issuer, _settings.Audience, _settings.Key);
+
+            if (_hostEnvironment.IsDevelopment())
             {
                 SwaggerHelper.ConfigureService(services);
             }
@@ -51,7 +65,7 @@ namespace Logistics.WebApi
 
             #region Swagger
 
-            if (HostEnvironment.IsDevelopment())
+            if (_hostEnvironment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>

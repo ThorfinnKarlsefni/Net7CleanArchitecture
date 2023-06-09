@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>97cddf20-18a4-45fd-ba39-e057c08376b1</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
@@ -11,17 +12,23 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Controllers\" />
-    <None Remove="Infrastructure\" />
-    <None Remove="Infrastructure\Helpers\" />
+    <None Remove="Helpers\" />
+    <None Remove="Utility\" />
+    <None Remove="Utility\Extensions\" />
+    <None Remove="Requests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Infrastructure\Helpers\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Utility\" />
+    <Folder Include="Utility\Extensions\" />
+    <Folder Include="Requests\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj">

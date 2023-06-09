@@ -8,9 +8,19 @@
 
   <ItemGroup>
     <None Remove="Data\" />
+    <None Remove="Settings\" />
+    <None Remove="Security\" />
+    <None Remove="Security\Authentication\" />
+    <None Remove="Security\Authentication\Services\" />
+    <None Remove="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Security\" />
+    <Folder Include="Security\Authentication\" />
+    <Folder Include="Security\Authentication\Services\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
@@ -19,6 +29,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj" />
