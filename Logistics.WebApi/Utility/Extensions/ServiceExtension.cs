@@ -2,6 +2,7 @@
 using Logistics.Domain.Interfaces.ServiceInterface;
 using Logistics.Domain.Services;
 using Logistics.Infrastructure.Security.Authentication.Services;
+using Logistics.WebApi.Requests;
 
 namespace Logistics.WebApi.Utility.Extensions
 {

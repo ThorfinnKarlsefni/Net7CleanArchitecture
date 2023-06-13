@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-    <PackageReference Include="FluentValidation" Version="11.5.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +21,7 @@
     <None Remove="Utility\" />
     <None Remove="Utility\Extensions\" />
     <None Remove="Requests\" />
+    <None Remove="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -29,6 +29,7 @@
     <Folder Include="Utility\" />
     <Folder Include="Utility\Extensions\" />
     <Folder Include="Requests\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj">

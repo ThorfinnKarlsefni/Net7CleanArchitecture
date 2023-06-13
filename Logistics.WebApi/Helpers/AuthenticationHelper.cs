@@ -41,8 +41,6 @@ namespace Logistics.WebApi.Infrastructure.Helpers
                 //options.SaveToken = true;
                 options.TokenValidationParameters = validationParameters;
             });
-
-            service.AddAuthorization();
         }
     }
 

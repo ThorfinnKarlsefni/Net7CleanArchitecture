@@ -40,7 +40,7 @@ namespace Logistics.WebApi.Controllers.Auth
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<string?>> LoginByPhoneAndPwd(string userName, string password)
+        public async Task<ActionResult<string?>> LoginByUserNameAndPwd([FromBody] string userName, string password)
         {
             (var checkResult, string? token) = await _userService.LoginByUserNameAndPwdAsync(userName, password);
             if (checkResult.Succeeded)
@@ -51,6 +51,17 @@ namespace Logistics.WebApi.Controllers.Auth
             return BadRequest("登录失败");
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<string?>> LoginByPhoneAndPwd(string phone, string password)
+        {
+            (var checkResult, string? token) = await _userService.LoginByUserPhoneAndPwdAsync(phone, password);
+            if (checkResult.Succeeded)
+                return token;
+            if (checkResult.IsLockedOut)
+                return StatusCode((int)HttpStatusCode.Locked, "此帐号已锁定");
+            return BadRequest("登录失败");
+        }
 
     }
 }

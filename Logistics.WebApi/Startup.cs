@@ -1,9 +1,14 @@
-﻿using FluentValidation.AspNetCore;
+﻿using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Logistics.Infrastructure.Data;
 using Logistics.Infrastructure.Settings;
 using Logistics.WebApi.Infrastructure.Helpers;
+using Logistics.WebApi.Middleware;
 using Logistics.WebApi.Utility.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Logistics.WebApi
 {
@@ -28,16 +33,17 @@ namespace Logistics.WebApi
 
 
             services.AddCustomRepositories();
-
             services.AddCustomServices();
 
-            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+            services.AddFluentValidationAutoValidation();
+            services.AddCustomValidators();
 
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
 
             IdentityHelper.ConfigureService(services);
+
             AuthenticationHelper.ConfigureService(services, _settings.Issuer, _settings.Audience, _settings.Key);
 
             if (_hostEnvironment.IsDevelopment())
@@ -57,11 +63,14 @@ namespace Logistics.WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseMiddleware<ValidationMiddleware>();
+
             app.UseRouting();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             #region Swagger
 
