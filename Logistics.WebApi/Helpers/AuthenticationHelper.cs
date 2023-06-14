@@ -3,46 +3,41 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Logistics.WebApi.Infrastructure.Helpers
+namespace Logistics.WebApi.Helpers
 {
-
     public class AuthenticationHelper
     {
-        public static void ConfigureService(IServiceCollection service, string issuer, string audience, string secretKey)
+        public static void ConfigureService(IServiceCollection services, string issuer, string audience, string secretKey)
         {
-            service.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                var secretkey = Encoding.UTF8.GetBytes(secretKey);
+            //var keyByteArray = Encoding.ASCII.GetBytes(SecretKey);
+            //var signinKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(keyByteArray);
 
-                var validationParameters = new TokenValidationParameters
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = issuer,
+                ValidAudience = audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+            };
+
+            services.AddSingleton(tokenValidationParameters);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
                 {
-                    ClockSkew = TimeSpan.Zero,
-                    RequireSignedTokens = true,
+                    //x.SaveToken = true;
+                    x.TokenValidationParameters = tokenValidationParameters;
+                });
 
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(secretkey),
-
-                    RequireExpirationTime = true,
-                    ValidateLifetime = true,
-
-                    ValidateAudience = true,
-                    ValidAudience = audience,
-
-                    ValidateIssuer = true,
-                    ValidIssuer = issuer,
-                };
-
-                //options.RequireHttpsMetadata = false;
-                //options.SaveToken = true;
-                options.TokenValidationParameters = validationParameters;
-            });
+            services.AddAuthorization();
         }
     }
-
 }
 

@@ -3,7 +3,7 @@ using Logistics.Domain.Entities.Identity;
 using Logistics.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace Logistics.WebApi.Infrastructure.Helpers
+namespace Logistics.WebApi.Helpers
 {
     public class IdentityHelper
     {

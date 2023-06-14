@@ -92,6 +92,8 @@ namespace Logistics.Domain.Interfaces.RepositoryInterface
         /// <param name="id"></param>
         /// <returns>返回值第三个是生成的密码</returns>
         public Task<(IdentityResult, User?, string? password)> ResetPasswordAsync(Guid id);
+
+        public Task<List<User>> GetAllUsers();
     }
 }
 

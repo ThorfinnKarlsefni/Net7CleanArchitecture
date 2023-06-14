@@ -6,6 +6,7 @@ using Logistics.Domain.Interfaces.RepositoryInterface;
 using Logistics.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using static Logistics.WebApi.Requests.UserRequest;
 
 namespace Logistics.WebApi.Controllers.Auth
@@ -40,27 +41,51 @@ namespace Logistics.WebApi.Controllers.Auth
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<string?>> LoginByUserNameAndPwd([FromBody] string userName, string password)
+        public async Task<ActionResult<string?>> LoginByUserNameAndPwd([FromBody] LoginByUserNameRequest req)
         {
-            (var checkResult, string? token) = await _userService.LoginByUserNameAndPwdAsync(userName, password);
+            (var checkResult, string? token) = await _userService.LoginByUserNameAndPwdAsync(req.userName, req.passwordHash);
             if (checkResult.Succeeded)
                 return token;
-            if (checkResult.IsLockedOut)
-                return StatusCode((int)HttpStatusCode.Locked, "此帐号已经锁定");
+            //if (checkResult.IsLockedOut)
+            //    return StatusCode((int)HttpStatusCode.Locked, "此帐号已经锁定");
 
             return BadRequest("登录失败");
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<string?>> LoginByPhoneAndPwd(string phone, string password)
+        public async Task<ActionResult<string?>> LoginByPhoneAndPwd([FromBody] LoginByPhoneRequest req)
         {
-            (var checkResult, string? token) = await _userService.LoginByUserPhoneAndPwdAsync(phone, password);
+            (var checkResult, string? token) = await _userService.LoginByUserPhoneAndPwdAsync(req.phoneNumber, req.passwordHash);
             if (checkResult.Succeeded)
                 return token;
-            if (checkResult.IsLockedOut)
-                return StatusCode((int)HttpStatusCode.Locked, "此帐号已锁定");
+            //if (checkResult.IsLockedOut)
+            //    return StatusCode((int)HttpStatusCode.Locked, "此帐号已锁定");
             return BadRequest("登录失败");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userRepository.GetAllUsers();
+            return Ok(users);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var userId = new Guid();
+                _userRepository.FindByIdAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex.Message);
+            }
+
+            return NoContent();
         }
 
     }

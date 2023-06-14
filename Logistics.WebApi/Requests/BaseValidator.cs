@@ -4,7 +4,7 @@ using FluentValidation.Results;
 
 namespace Logistics.WebApi.Helpers
 {
-    public abstract class ValidationHelper<T> : AbstractValidator<T>
+    public abstract class BaseValidator<T> : AbstractValidator<T>
     {
         public override ValidationResult Validate(ValidationContext<T> context)
         {
@@ -12,6 +12,7 @@ namespace Logistics.WebApi.Helpers
 
             if (!result.IsValid)
             {
+                var errorMessage = result.Errors.First().ErrorMessage;
                 var errorDetails = new ValidationException(result.Errors);
                 throw errorDetails;
             }

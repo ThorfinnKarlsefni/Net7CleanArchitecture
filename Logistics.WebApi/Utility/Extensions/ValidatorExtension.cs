@@ -10,6 +10,9 @@ namespace Logistics.WebApi.Utility.Extensions
         public static void AddCustomValidators(this IServiceCollection services)
         {
             services.AddScoped<IValidator<RegisterUserRequest>, RegisterUserValidator>();
+            services.AddScoped<IValidator<LoginByPhoneRequest>, LoginByPhoneValidator>();
+            services.AddScoped<IValidator<LoginByUserNameRequest>, LoginByUserNameValidator>();
+
         }
     }
 }

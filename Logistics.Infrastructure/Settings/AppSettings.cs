@@ -29,6 +29,7 @@ namespace Logistics.Infrastructure.Settings
         {
             var settings = _config.GetSection("AppSettings");
             return settings[key];
+
         }
 
         private int ReadInt(string key)

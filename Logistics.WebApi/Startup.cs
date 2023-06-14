@@ -1,14 +1,13 @@
-﻿using System.Reflection;
-using FluentValidation;
+﻿
 using FluentValidation.AspNetCore;
 using Logistics.Infrastructure.Data;
 using Logistics.Infrastructure.Settings;
-using Logistics.WebApi.Infrastructure.Helpers;
+using Logistics.WebApi.Helpers;
 using Logistics.WebApi.Middleware;
 using Logistics.WebApi.Utility.Extensions;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Logistics.WebApi
 {
@@ -31,6 +30,7 @@ namespace Logistics.WebApi
             services.AddDbContext<XhwtDbContext>(options =>
                options.UseNpgsql(_configuration.GetConnectionString("DbContext")));
 
+            services.AddSingleton<IAppSettings, AppSettings>();
 
             services.AddCustomRepositories();
             services.AddCustomServices();
@@ -43,6 +43,8 @@ namespace Logistics.WebApi
             services.AddEndpointsApiExplorer();
 
             IdentityHelper.ConfigureService(services);
+
+            LoggerHelper.ConfigureService(services);
 
             AuthenticationHelper.ConfigureService(services, _settings.Issuer, _settings.Audience, _settings.Key);
 
@@ -79,8 +81,9 @@ namespace Logistics.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Logictics Api v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });
+
             }
 
             #endregion

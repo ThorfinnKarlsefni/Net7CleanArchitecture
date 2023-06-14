@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 using Logistics.Domain.Entities.Identity;
 using Logistics.Domain.Interfaces.RepositoryInterface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logistics.Infrastructure.Repositories
 {
@@ -23,7 +24,7 @@ namespace Logistics.Infrastructure.Repositories
 
         public async Task<User?> FindByPhoneNumberAsync(string phoneNum)
         {
-            return _userManager.Users.FirstOrDefault(u => u.PhoneNumber == phoneNum);
+            return await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNum);
         }
 
         public Task<User?> FindByIdAsync(Guid userId)
@@ -56,7 +57,7 @@ namespace Logistics.Infrastructure.Repositories
             if (!changeResult.Succeeded)
             {
                 await _userManager.AccessFailedAsync(user);
-                string errMsg = changeResult.Errors.Select(x => x.Description).ToString();
+                string errMsg = changeResult.Errors.First().Description;
                 _logger.LogWarning($"{phoneNum}ChangePhoneNumberAsync失败，错误信息{errMsg}");
                 return SignInResult.Failed;
             }
@@ -76,9 +77,13 @@ namespace Logistics.Infrastructure.Repositories
                 return IdentityResult.Failed(err);
             }
             var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                return IdentityResult.Failed();
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var resetPwdResult = await _userManager.ResetPasswordAsync(user, token, password);
             return resetPwdResult;
+
+
         }
 
         public Task<string> GenerateChangePhoneNumberTokenAsync(User user, string phoneNumber)
@@ -177,6 +182,8 @@ namespace Logistics.Infrastructure.Repositories
             //    await userLoginStore.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey, noneCT);
             //}
             //user.SoftDelete();
+            if (user == null)
+                return IdentityResult.Failed();
             var result = await _userManager.UpdateAsync(user);
             return result;
         }
@@ -264,6 +271,11 @@ namespace Logistics.Infrastructure.Repositories
             if (uppercase)
                 password.Append((char)random.Next(65, 91));
             return password.ToString();
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _userManager.Users.Where(user => user.DeletedAt == null).ToListAsync();
         }
     }
 }

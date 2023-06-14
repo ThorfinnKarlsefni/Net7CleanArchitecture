@@ -12,13 +12,11 @@ namespace Logistics.Domain.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
-        private readonly IOptions<JWTOptions> _optJWT;
 
-        public UserService(IUserRepository userRepository, ITokenService tokenService, IOptions<JWTOptions> options)
+        public UserService(IUserRepository userRepository, ITokenService tokenService)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
-            _optJWT = options;
         }
 
         private async Task<SignInResult> CheckUserNameAndPwdAsync(string userName, string password)
@@ -46,6 +44,8 @@ namespace Logistics.Domain.Services
                 return (checkResult, null);
 
             var user = await _userRepository.FindByPhoneNumberAsync(phoneNumber).ConfigureAwait(false);
+            if (user == null)
+                return (checkResult, null);
             string token = await BuildTokenAsync(user);
             return (SignInResult.Success, token);
         }
@@ -57,6 +57,8 @@ namespace Logistics.Domain.Services
                 return (checkResult, null);
 
             var user = await _userRepository.FindByNameAsync(userName).ConfigureAwait(false);
+            if (user == null)
+                return (checkResult, null);
             string token = await BuildTokenAsync(user);
             return (SignInResult.Success, token);
         }
@@ -70,7 +72,7 @@ namespace Logistics.Domain.Services
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-            return _tokenService.BuildToken(claims, _optJWT.Value);
+            return _tokenService.BuildToken(claims);
         }
     }
 }
