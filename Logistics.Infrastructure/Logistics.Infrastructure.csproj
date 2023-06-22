@@ -6,4 +6,29 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Repositories\" />
+    <None Remove="Settings\" />
+    <None Remove="Authentication\" />
+    <None Remove="Data\Configs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Authentication\" />
+    <Folder Include="Data\Configs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.7" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj" />
+  </ItemGroup>
 </Project>

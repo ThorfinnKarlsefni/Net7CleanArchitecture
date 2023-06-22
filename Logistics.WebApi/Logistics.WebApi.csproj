@@ -11,12 +11,36 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Utility\" />
+    <None Remove="Controllers\Auth\" />
+    <None Remove="Middleware\" />
+    <None Remove="Middleware\Validator\" />
+    <None Remove="Helpers\" />
+    <None Remove="Utility\Extensions\" />
+    <None Remove="Requests\" />
+    <None Remove="Dto\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Utility\" />
+    <Folder Include="Controllers\Auth\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Utility\Extensions\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logistics.Domain\Logistics.Domain.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Logistics.Infrastructure\Logistics.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

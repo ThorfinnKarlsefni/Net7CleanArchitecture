@@ -6,4 +6,23 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Services\" />
+    <None Remove="Entities\Identity\" />
+    <None Remove="Interfaces\Services\" />
+    <None Remove="Interfaces\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Entities\Identity\" />
+    <Folder Include="Interfaces\Services\" />
+    <Folder Include="Interfaces\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.7" />
+  </ItemGroup>
 </Project>
