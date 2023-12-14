@@ -3,14 +3,13 @@ using Logistics.Domain.Entities.Identity;
 
 namespace Logistics.WebApi.Dto
 {
+    public record UserInfoDto(Guid Id, string? Username, string? PhoneNumber, string? Avatar, string? RoleName);
+
     public class UserDto
     {
-        public record UserInfoDto(Guid Id, string? UserName, string? RoleName);
-
         public static UserInfoDto CreateUserInfo(User user, string? roleName)
         {
-            return new UserInfoDto(user.UserId, user.UserName, roleName);
+            return new UserInfoDto(user.Id, user.UserName, user.PhoneNumber, user.Avatar, roleName);
         }
     }
 }
-

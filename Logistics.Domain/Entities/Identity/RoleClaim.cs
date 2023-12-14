@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Logistics.Domain.Entities.Identity
 {
-    public class RoleClaim : IdentityRoleClaim<int>
+    public class RoleClaim : IdentityRoleClaim<Guid>
     {
         public RoleClaim()
         {

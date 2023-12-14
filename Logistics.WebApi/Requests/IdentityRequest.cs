@@ -4,72 +4,72 @@ using Logistics.WebApi.Helpers;
 
 namespace Logistics.WebApi.Requests
 {
+    public record RegisterUserRequest(string UserName, string? PhoneNumber, string Password, string ConfirmPassword);
+
+    public record LoginUserNameRequest(string UserName, string Password);
+
+    public record ResetPasswordRequest(string OldPassword, string NewPassword, string ConfirmPassword);
+
+    public record AddAndUpdateRoleRequest(string RoleName);
+
+    public record UpdateUserRequest(string UserName);
+
     public class IdentityRequest
     {
-        public record RegisterUserRequest(string userName, string? phoneNumber, string password, string confirmPassword);
 
-        public class RegisterUserValidator : Requests<RegisterUserRequest>
+        public class RegisterUserValidator : AbstractValidator<RegisterUserRequest>
         {
             public RegisterUserValidator()
             {
-                RuleFor(e => e.userName).NotNull().NotEmpty().WithMessage("用户名不能为空");
-                RuleFor(e => e.phoneNumber)
+                RuleFor(e => e.UserName).NotNull().NotEmpty().WithMessage("用户名不能为空");
+                RuleFor(e => e.PhoneNumber)
                         .NotEmpty()
-                        .When(e => !string.IsNullOrEmpty(e.phoneNumber))
-                        .Must(Helper.IsValidPhoneNumer)
+                        .When(e => !string.IsNullOrEmpty(e.PhoneNumber))
+                        .Must(Helper.IsValidPhoneNumber)
                         .WithMessage("非法手机号");
 
-                RuleFor(e => e.password).NotNull().NotEmpty().WithMessage("用户密码不能为空");
+                RuleFor(e => e.Password).NotNull().NotEmpty().WithMessage("用户密码不能为空");
                 RuleFor(e => e)
-                        .Must(e => e.password == e.confirmPassword)
+                        .Must(e => e.Password == e.ConfirmPassword)
                         .WithMessage("两次密码不一致");
             }
         }
 
-        public record LoginUserNameRequest(string userName, string password);
-
-        public class LoginUserNameValidator : Requests<LoginUserNameRequest>
+        public class LoginUserNameValidator : AbstractValidator<LoginUserNameRequest>
         {
             public LoginUserNameValidator()
             {
-                RuleFor(e => e.userName).NotNull().NotEmpty().WithMessage("用户名不能为空");
-                RuleFor(e => e.password).NotNull().NotEmpty().WithMessage("用户密码不能为空");
+                RuleFor(e => e.UserName).NotNull().NotEmpty().WithMessage("用户名不能为空");
+                RuleFor(e => e.Password).NotNull().NotEmpty().WithMessage("用户密码不能为空");
             }
         }
 
-        public record ResetPasswordRequest(Guid userId, string oldPassword, string newPassword, string confirmPassword);
-
-        public class ResetPasswordValidator : Requests<ResetPasswordRequest>
+        public class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
         {
             public ResetPasswordValidator()
             {
-                RuleFor(e => e.userId).NotNull().NotEmpty().WithMessage("用户不存在");
-                RuleFor(e => e.oldPassword).NotNull().NotEmpty().WithMessage("旧密码不能为空");
+                RuleFor(e => e.OldPassword).NotNull().NotEmpty().WithMessage("旧密码不能为空");
                 RuleFor(e => e)
-                    .Must(e => e.newPassword == e.confirmPassword)
+                    .Must(e => e.NewPassword == e.ConfirmPassword)
                     .WithMessage("两次密码不一致");
             }
         }
 
-        public record AddAndUpdateRoleRequest(string roleName);
-
-        public class AddAndUpdateRoleValidator : Requests<AddAndUpdateRoleRequest>
+        public class AddAndUpdateRoleValidator : AbstractValidator<AddAndUpdateRoleRequest>
         {
             public AddAndUpdateRoleValidator()
             {
-                RuleFor(e => e.roleName)
+                RuleFor(e => e.RoleName)
                     .NotNull().NotEmpty().WithErrorCode("角色名称不能为空")
-                    .Length(1, 6).WithMessage("角色名长度必须在1到6个之间");
+                    .Length(1, 16).WithMessage("角色名长度必须在1到16个字符之间");
             }
         }
 
-        public record UpdateUserRequest(string userName);
-
-        public class UpdateUserRoleValidator : Requests<UpdateUserRequest>
+        public class UpdateUserRoleValidator : AbstractValidator<UpdateUserRequest>
         {
             public UpdateUserRoleValidator()
             {
-                RuleFor(e => e.userName)
+                RuleFor(e => e.UserName)
                     .NotNull().NotEmpty().WithErrorCode("角色名称不能为空")
                     .Length(1, 6).WithMessage("用户名长度必须在1到6个之间");
             }

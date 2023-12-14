@@ -9,9 +9,8 @@ namespace Logistics.Domain.Interfaces.Repositories
     {
         Task<IdentityResult> AddClaimAsync(User user, Claim claim);
 
+        //Task<User> FindByIdAsync(Guid id);
         Task<User> FindByIdAsync(string id);
-
-        Task<User> FindByUserIdAsync(Guid userId);
 
         Task<User> FindByNameAsync(string userName);
 

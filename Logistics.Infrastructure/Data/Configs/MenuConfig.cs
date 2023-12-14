@@ -1,0 +1,18 @@
+﻿using Logistics.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Logistics.Infrastructure;
+
+public class MenuConfig : IEntityTypeConfiguration<Menu>
+{
+    public void Configure(EntityTypeBuilder<Menu> builder)
+    {
+        builder.Property(m => m.Name).HasColumnType("varchar(50)");
+        builder.Property(m => m.Icon).HasColumnType("varchar(50)");
+        builder.Property(m => m.Path).HasColumnType("varchar(50)");
+        builder.Property(m => m.Redirect).HasColumnType("varchar(50)");
+        builder.Property(m => m.Component).HasColumnType("varchar(50)");
+        builder.Ignore(m => m.Children);
+    }
+}

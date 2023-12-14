@@ -44,7 +44,7 @@ namespace Logistics.WebApi.Helpers
                                 var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenService>();
                                 if (userIdClaim != null && tokenVersionClaim != null)
                                 {
-                                    if (!await tokenService.ValidatorTokenAsync(userIdClaim.Value.ToString(), tokenVersionClaim))
+                                    if (!await tokenService.ValidatorTokenAsync(userIdClaim.Value, tokenVersionClaim))
                                         context.Fail("Invalid token");
                                 }
                             }

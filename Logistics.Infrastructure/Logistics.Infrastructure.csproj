@@ -11,12 +11,15 @@
     <None Remove="Settings\" />
     <None Remove="Authentication\" />
     <None Remove="Data\Configs\" />
+    <None Remove="Migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Migrations/" />
     <Folder Include="Repositories\" />
     <Folder Include="Settings\" />
     <Folder Include="Authentication\" />
     <Folder Include="Data\Configs\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />

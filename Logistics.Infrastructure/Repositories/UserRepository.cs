@@ -1,9 +1,7 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Logistics.Domain.Entities.Identity;
 using Logistics.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Logistics.Infrastructure.Repositories
 {
@@ -51,14 +49,6 @@ namespace Logistics.Infrastructure.Repositories
         public async Task<User> FindByNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
-            if (user == null)
-                throw new AggregateException("用户不存在");
-            return user;
-        }
-
-        public async Task<User> FindByUserIdAsync(Guid userId)
-        {
-            var user = await _userManager.Users.FirstAsync(user => user.UserId == userId);
             if (user == null)
                 throw new AggregateException("用户不存在");
             return user;

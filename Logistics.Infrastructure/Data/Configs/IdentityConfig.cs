@@ -12,6 +12,7 @@ namespace Logistics.Infrastructure.Data.Configs
             public void Configure(EntityTypeBuilder<User> builder)
             {
                 builder.ToTable("Users").Property(u => u.TokenVersion).HasDefaultValue(0);
+                builder.Property(u => u.Avatar).HasColumnType("varchar(256)");
             }
         }
 
@@ -27,7 +28,6 @@ namespace Logistics.Infrastructure.Data.Configs
         {
             public void Configure(EntityTypeBuilder<UserRole> builder)
             {
-                builder.HasKey(u => new { u.UserId, u.RoleId });
                 builder.ToTable("UserRole");
             }
         }
@@ -36,7 +36,6 @@ namespace Logistics.Infrastructure.Data.Configs
         {
             public void Configure(EntityTypeBuilder<UserLogin> builder)
             {
-                builder.HasKey(u => new { u.LoginProvider, u.ProviderKey });
                 builder.ToTable("UserLogin");
             }
         }
@@ -61,7 +60,6 @@ namespace Logistics.Infrastructure.Data.Configs
         {
             public void Configure(EntityTypeBuilder<UserToken> builder)
             {
-                builder.HasKey(ut => new { ut.UserId, ut.LoginProvider, ut.Name });
                 builder.ToTable("UserToken");
             }
         }

@@ -22,7 +22,7 @@ namespace Logistics.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Logistics.Domain.Entities.Identity.Role", b =>
+            modelBuilder.Entity("Logistics.Domain.Entities.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,9 +30,68 @@ namespace Logistics.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BankId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banks");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Consignee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Consignees");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Identity.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -42,6 +101,9 @@ namespace Logistics.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -49,6 +111,16 @@ namespace Logistics.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b"),
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860),
+                            Name = "Admin",
+                            NormalizedName = "ADMIN",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860)
+                        });
                 });
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.RoleClaim", b =>
@@ -65,8 +137,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -77,14 +149,15 @@ namespace Logistics.Infrastructure.Migrations
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -137,9 +210,6 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -154,6 +224,25 @@ namespace Logistics.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ac444c71-c767-4247-9e12-7c987694d9da"),
+                            AccessFailedCount = 0,
+                            Avatar = "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif",
+                            ConcurrencyStamp = "32713740-f8dd-43aa-85f5-7891210af0ef",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6790),
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedUserName = "CHEUNG",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHP2wX5FQce1oLhn4nv9Re16m5Km5INhOdGN3tTvEiW8ZnJY7N7bR9k4wJJ/wz6YxQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG",
+                            TokenVersion = 0L,
+                            TwoFactorEnabled = false,
+                            UserName = "cheung"
+                        });
                 });
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.UserClaim", b =>
@@ -170,8 +259,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -191,8 +280,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -203,23 +292,30 @@ namespace Logistics.Infrastructure.Migrations
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.UserRole", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("ac444c71-c767-4247-9e12-7c987694d9da"),
+                            RoleId = new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b")
+                        });
                 });
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.UserToken", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text");
@@ -233,6 +329,347 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserToken", (string)null);
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Shipper", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IdCard")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shippers");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Waybill", b =>
+                {
+                    b.Property<Guid>("WaybillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<decimal?>("BackFreightFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("BankId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("BargainerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CargoId")
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("CargoName")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<int?>("CargoValue")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("CodcFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ConsigneeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal?>("DeliveryFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("FreightFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("InsuranceFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("NotificationFee")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("Packing")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("PayAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<int>("ShipperId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ToStation")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TransitStation")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<float?>("Volume")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("Weight")
+                        .HasColumnType("real");
+
+                    b.HasKey("WaybillId");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("BargainerId");
+
+                    b.HasIndex("ConsigneeId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("ShipperId");
+
+                    b.ToTable("Waybills");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Component")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("HideInMenu")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Redirect")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880),
+                            HideInMenu = false,
+                            Icon = "crown",
+                            Name = "系统",
+                            Order = 0,
+                            ParentId = 0,
+                            Path = "/admin",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Component = "./Admin/Users",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880),
+                            HideInMenu = false,
+                            Name = "员工列表",
+                            Order = 0,
+                            ParentId = 1,
+                            Path = "/admin/users",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Component = "./Admin/Menu",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Name = "菜单管理",
+                            Order = 0,
+                            ParentId = 1,
+                            Path = "/admin/menu",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Component = "./Admin/Permission",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Name = "权限管理",
+                            Order = 0,
+                            ParentId = 1,
+                            Path = "/admin/permission",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Component = "./Admin/Role",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Name = "角色管理",
+                            Order = 0,
+                            ParentId = 1,
+                            Path = "/admin/role",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Component = "./Admin/Station",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Name = "站点管理",
+                            Order = 0,
+                            ParentId = 1,
+                            Path = "/admin/station",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Icon = "car",
+                            Name = "运输管理",
+                            Order = 0,
+                            ParentId = 0,
+                            Path = "/transport",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Component = "./Transport/Invoices",
+                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            HideInMenu = false,
+                            Name = "发票管理",
+                            Order = 0,
+                            ParentId = 7,
+                            Path = "/transport/invoices",
+                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                        });
+                });
+
+            modelBuilder.Entity("Logistics.Domain.MenuRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("MenuRoles");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("HttpMethod")
+                        .HasColumnType("varchar(191)");
+
+                    b.Property<string>("HttpPath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("order")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permission");
                 });
 
             modelBuilder.Entity("Logistics.Domain.Entities.Identity.RoleClaim", b =>
@@ -284,6 +721,86 @@ namespace Logistics.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Waybill", b =>
+                {
+                    b.HasOne("Logistics.Domain.Entities.Bank", "Bank")
+                        .WithMany("Waybills")
+                        .HasForeignKey("BankId");
+
+                    b.HasOne("Logistics.Domain.Entities.Identity.User", null)
+                        .WithMany("BargainedWaybills")
+                        .HasForeignKey("BargainerId");
+
+                    b.HasOne("Logistics.Domain.Entities.Consignee", null)
+                        .WithMany("Waybills")
+                        .HasForeignKey("ConsigneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Logistics.Domain.Entities.Identity.User", null)
+                        .WithMany("CreatorWaybills")
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Logistics.Domain.Entities.Shipper", null)
+                        .WithMany("Waybills")
+                        .HasForeignKey("ShipperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bank");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.MenuRole", b =>
+                {
+                    b.HasOne("Logistics.Domain.Menu", "Menu")
+                        .WithMany("MenuRoles")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Logistics.Domain.Entities.Identity.Role", "Role")
+                        .WithMany("MenuRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Bank", b =>
+                {
+                    b.Navigation("Waybills");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Consignee", b =>
+                {
+                    b.Navigation("Waybills");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Identity.Role", b =>
+                {
+                    b.Navigation("MenuRoles");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Identity.User", b =>
+                {
+                    b.Navigation("BargainedWaybills");
+
+                    b.Navigation("CreatorWaybills");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Entities.Shipper", b =>
+                {
+                    b.Navigation("Waybills");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Menu", b =>
+                {
+                    b.Navigation("MenuRoles");
                 });
 #pragma warning restore 612, 618
         }

@@ -20,9 +20,9 @@ namespace Logistics.Domain.Services
             _roleRepository = roleRepository;
         }
 
-        public async Task<IdentityResult> AddToRoleAsync(Guid userId, string roleId)
+        public async Task<IdentityResult> AddToRoleAsync(string userId, string roleId)
         {
-            var user = await _userRepostiory.FindByUserIdAsync(userId).ConfigureAwait(false);
+            var user = await _userRepostiory.FindByIdAsync(userId).ConfigureAwait(false);
             var role = await _roleRepository.FindByIdAsync(roleId).ConfigureAwait(false);
             if (string.IsNullOrEmpty(role?.Name))
                 throw new AggregateException("角色名称为空");
@@ -34,7 +34,7 @@ namespace Logistics.Domain.Services
             var roles = await _userRepostiory.GetRolesAsync(user);
             List<Claim> claims = new List<Claim>();
             user.TokenVersionIncrement();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim("token_version", user.TokenVersion.ToString()));
             foreach (string role in roles)
             {
@@ -45,23 +45,23 @@ namespace Logistics.Domain.Services
             return _tokenService.GenerateTokens(claims);
         }
 
-        public async Task<(User user, IList<string> roles)> GetUserInfo(Guid userId)
+        public async Task<(User user, IList<string> roles)> GetUserInfo(string userId)
         {
-            var user = await _userRepostiory.FindByUserIdAsync(userId).ConfigureAwait(false);
+            var user = await _userRepostiory.FindByIdAsync(userId).ConfigureAwait(false);
             var roles = await _userRepostiory.GetRolesAsync(user);
             return (user, roles);
         }
 
-        public async Task<IdentityResult> ResetPasswordAsync(Guid userId, string oldPassword, string newPassword)
+        public async Task<IdentityResult> ResetPasswordAsync(string userId, string oldPassword, string newPassword)
         {
-            var user = await _userRepostiory.FindByUserIdAsync(userId);
+            var user = await _userRepostiory.FindByIdAsync(userId);
             await _userRepostiory.CheckPasswordAsync(user, oldPassword);
             return await _userRepostiory.ResetPasswordAsync(user, newPassword);
         }
 
-        public async Task<IdentityResult> UpdateUserAsync(Guid userId, string userName)
+        public async Task<IdentityResult> UpdateUserAsync(string userId, string userName)
         {
-            var user = await _userRepostiory.FindByUserIdAsync(userId).ConfigureAwait(false);
+            var user = await _userRepostiory.FindByIdAsync(userId).ConfigureAwait(false);
             user.UserName = userName;
             return await _userRepostiory.UpdateAsync(user).ConfigureAwait(false);
         }

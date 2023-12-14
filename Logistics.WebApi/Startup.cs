@@ -1,12 +1,13 @@
-﻿using System;
+﻿using System.Text.Json;
 using FluentValidation.AspNetCore;
 using Logistics.Infrastructure.Data;
 using Logistics.Infrastructure.Settings;
 using Logistics.WebApi.Helpers;
 using Logistics.WebApi.Middleware;
 using Logistics.WebApi.Utility.Extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Logistics.WebApi
 {
@@ -38,7 +39,18 @@ namespace Logistics.WebApi
 
             services.AddCustomValidators();
 
-            services.AddControllers();
+            services.AddControllers().ConfigureApiBehaviorOptions(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var errors = context.ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage).FirstOrDefault();
+                    return new BadRequestObjectResult(errors);
+                };
+            });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             IdentityHelper.ConfigureService(services);
 

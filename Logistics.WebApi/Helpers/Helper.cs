@@ -5,7 +5,7 @@ namespace Logistics.WebApi.Helpers
 {
     public class Helper
     {
-        public static bool IsValidPhoneNumer(string? phoneNumber)
+        public static bool IsValidPhoneNumber(string? phoneNumber)
         {
             string pattern = @"^1[3456789]\d{9}$";
             if (string.IsNullOrEmpty(phoneNumber))

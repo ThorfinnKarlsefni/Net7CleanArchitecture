@@ -1,12 +1,9 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Logistics.Domain.Entities.Identity;
 using Logistics.Domain.Interfaces.Repositories;
 using Logistics.Domain.Interfaces.Services;
 using Logistics.Infrastructure.Settings;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Logistics.Infrastructure.Authentication
@@ -33,7 +30,7 @@ namespace Logistics.Infrastructure.Authentication
 
         public async Task<bool> ValidatorTokenAsync(string userId, string tokenVersionClaim)
         {
-            var user = await _userRepository.FindByUserIdAsync(Guid.Parse(userId)).ConfigureAwait(false);
+            var user = await _userRepository.FindByIdAsync(userId);
             if (user?.TokenVersion.ToString() == tokenVersionClaim)
                 return true;
             return false;

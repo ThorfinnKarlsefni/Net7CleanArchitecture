@@ -1,10 +1,8 @@
-﻿using System;
-using System.Xml.Linq;
-using Logistics.Domain.Interfaces.Repositories;
+﻿using Logistics.Domain.Interfaces.Repositories;
 using Logistics.Domain.Interfaces.Services;
+using Logistics.WebApi.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Logistics.WebApi.Requests.IdentityRequest;
 
 namespace Logistics.WebApi.Controllers.Auth
 {
@@ -34,7 +32,7 @@ namespace Logistics.WebApi.Controllers.Auth
         [HttpPost]
         public async Task<IActionResult> AddRole([FromBody] AddAndUpdateRoleRequest req)
         {
-            var res = await _roleService.CreateAsync(req.roleName);
+            var res = await _roleService.CreateAsync(req.RoleName);
             if (!res.Succeeded)
                 return BadRequest(res.Errors.First().Description);
             return Ok();
@@ -52,22 +50,18 @@ namespace Logistics.WebApi.Controllers.Auth
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRole(string id, [FromBody] AddAndUpdateRoleRequest req)
         {
-            var res = await _roleService.UpdateRoleAsync(id, req.roleName);
+            var res = await _roleService.UpdateRoleAsync(id, req.RoleName);
             if (!res.Succeeded)
                 return BadRequest(res.Errors.First().Description);
             return NoContent();
         }
 
         [HttpPost("{id}/User/{userId}")]
-        public async Task<IActionResult> AddUserRole(string id, string userId)
+        public async Task<IActionResult> AddUserRole(string roleId, string userId)
         {
-            if (!Guid.TryParse(userId, out Guid user))
-                return BadRequest("用户标识不存在");
-
-            var res = await _userService.AddToRoleAsync(user, id).ConfigureAwait(false);
+            var res = await _userService.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
             if (!res.Succeeded)
                 return BadRequest(res.Errors.First().Description);
-
             return Ok();
         }
     }
