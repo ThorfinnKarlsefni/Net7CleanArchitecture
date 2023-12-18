@@ -25,10 +25,10 @@ namespace Logistics.WebApi.Controllers.Auth
         // [Authorize]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequest req)
         {
-            if (await _userRepository.GetByNameAsync(req.UserName).ConfigureAwait(false) != null)
+            if (await _userRepository.GetByNameAsync(req.UserName) != null)
                 return BadRequest("用户已存在");
             User user = new User(req.UserName);
-            var result = await _userRepository.CreateAsync(user, req.Password).ConfigureAwait(false);
+            var result = await _userRepository.CreateAsync(user, req.Password);
             if (!result.Succeeded)
                 return BadRequest("创建失败!请联系管理员");
             return Ok();
@@ -37,8 +37,8 @@ namespace Logistics.WebApi.Controllers.Auth
         [HttpPost]
         public async Task<IActionResult> LoginByUserName([FromBody] LoginUserNameRequest req)
         {
-            var user = await _userRepository.FindByNameAsync(req.UserName).ConfigureAwait(false);
-            var result = await _userRepository.CheckPasswordAsync(user, req.Password).ConfigureAwait(false);
+            var user = await _userRepository.FindByNameAsync(req.UserName);
+            var result = await _userRepository.CheckPasswordAsync(user, req.Password);
             if (!result)
                 return BadRequest("用户名或密码错误");
             return Ok(await _userService.GenerateTokensAsync(user));

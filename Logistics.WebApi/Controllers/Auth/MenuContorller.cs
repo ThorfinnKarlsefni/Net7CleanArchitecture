@@ -34,7 +34,7 @@ public class MenuController : ControllerBase
     public async Task<MenuItemDto> Get(int id)
     {
         var menu = await _menuRepository.FindMenuAsync(id);
-        return MenuDto.CreateMenuItem(menu);
+        return _mapper.Map<MenuItemDto>(menu);
     }
 
     [HttpPost]
@@ -61,11 +61,11 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet("Tree")]
-    public async Task<ICollection<MenuTreeDto>> Tree()
+    public async Task<List<MenuTreeDto?>> Tree()
     {
         var allMenus = await _menuRepository.GetMenuListAsync();
-        var rootMenus = await BuildRootMenuAsync(allMenus);
-        return await MenuDto.CreateMenuTreeAsync(rootMenus);
+        // var rootMenus = await BuildRootMenuAsync(allMenus);
+        return _mapper.Map<List<MenuTreeDto?>>(await BuildRootMenuAsync(allMenus));
     }
 
     [HttpGet("PathList")]
@@ -93,7 +93,7 @@ public class MenuController : ControllerBase
     /// </summary>
     /// <param name="allMenus"></param>
     /// <returns></returns>
-    private async Task<List<Menu>> BuildRootMenuAsync(ICollection<Menu> allMenus)
+    private async Task<List<Menu>> BuildRootMenuAsync(List<Menu> allMenus)
     {
         var menuDictionary = allMenus
             .Where(menu => menu.ParentId != 0)

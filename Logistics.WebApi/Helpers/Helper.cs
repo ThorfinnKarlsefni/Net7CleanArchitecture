@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Logistics.WebApi.Helpers
 {
-    public class Helper
+    public static class Helper
     {
         public static bool IsValidPhoneNumber(string? phoneNumber)
         {

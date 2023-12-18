@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Logs/" />
     <Folder Include="Utility\" />
     <Folder Include="Controllers\Auth\" />
     <Folder Include="Middleware\" />
