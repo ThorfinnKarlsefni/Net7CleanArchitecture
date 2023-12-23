@@ -10,5 +10,7 @@ public class PermissionConfig : IEntityTypeConfiguration<Permission>
     {
         builder.Property(p => p.Name).HasColumnType("varchar(50)");
         builder.Property(p => p.HttpMethod).HasColumnType("varchar(191)");
+        builder.Property(p => p.CreatedAt).HasColumnType("timestamp");
+        builder.Property(p => p.UpdatedAt).HasColumnType("timestamp");
     }
 }

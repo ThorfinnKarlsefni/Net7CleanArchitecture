@@ -17,7 +17,7 @@
             Name = name;
             Phone = phone;
             IdCard = idCard;
-            CreatedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
         }
     }
 }

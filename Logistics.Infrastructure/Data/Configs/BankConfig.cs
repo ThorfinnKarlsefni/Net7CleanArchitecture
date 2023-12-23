@@ -10,6 +10,8 @@ namespace Logistics.Infrastructure.Data.Configs
         public void Configure(EntityTypeBuilder<Bank> builder)
         {
             builder.Property(b => b.BankName).HasColumnType("varchar(20)");
+            builder.Property(b => b.CreatedAt).HasColumnType("timestamp");
+            builder.Property(b => b.UpdatedAt).HasColumnType("timestamp");
         }
     }
 }

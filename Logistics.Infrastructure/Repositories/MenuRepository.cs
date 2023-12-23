@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Diagnostics.CodeAnalysis;
 using Logistics.Domain;
-using Logistics.Domain.Entities.Identity;
 using Logistics.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +13,17 @@ public class MenuRepository : IMenuRepository
     {
         _context = dbContext;
     }
-    public async Task<ICollection<Menu>> GetMenuTreeAsync()
+    public async Task<Menu> FindMenuAsync(int id)
     {
-        return await _context.Menus.OrderByDescending(m => m.Order).ToListAsync();
+        return await _context.Menus.Include(menu => menu.MenuRoles).Where(menu => menu.Id == id).FirstAsync();
+    }
+    public async Task<List<Menu>> GetMenuListAsync()
+    {
+        // The menu list and menu tree are shared
+        return await _context.Menus.OrderBy(menu => menu.Order).ToListAsync();
     }
 
-    public async Task<ICollection<Menu>> GetMenuListByUserIdAsync(string userId)
+    public async Task<List<Menu>> GetMenuListByUserIdAsync(string userId)
     {
         var roleInfo = await _context.UserRoles
             .Where(ur => ur.UserId == Guid.Parse(userId))
@@ -35,7 +37,7 @@ public class MenuRepository : IMenuRepository
         var roleIds = roleInfo.Select(r => r.RoleId).ToList();
         var roleName = roleInfo.Select(r => r.RoleName).ToList();
         if (roleName.Contains("Admin"))
-            return await GetMenuTreeAsync();
+            return await GetMenuListAsync();
 
         var menuIdsForRole = await _context.MenuRoles
             .Where(mr => roleIds.Contains(mr.RoleId))
@@ -50,38 +52,42 @@ public class MenuRepository : IMenuRepository
             .ToListAsync();
     }
 
+    public async Task<ICollection<Menu>> GetMenuPathListAsync()
+    {
+        return await _context.Menus.Where(menu => menu.ParentId != 0).ToListAsync();
+    }
+
     public async Task<Menu?> GetMenuByPathAsync(string path)
     {
         return await _context.Menus.Where(menu => menu.Path == path).FirstOrDefaultAsync();
     }
 
-    public async Task AddMenuAsync(Menu menu, List<string>? roleIds)
+    public async Task AddMenuAsync(Menu menu, List<string>? menuRoles)
     {
         await _context.Menus.AddAsync(menu);
         await _context.SaveChangesAsync();
-        await AddRolesByMenu(menu.Id, roleIds);
+        if (menuRoles != null && menuRoles.Any())
+            await AddRolesByMenu(menu.Id, menuRoles);
         await _context.SaveChangesAsync();
     }
 
-    public async Task AddRolesByMenu(int menuId, List<string>? roleIds)
+    public async Task AddRolesByMenu(int menuId, List<string> menuRoles)
     {
-        if (roleIds != null && roleIds.Any())
+        var roles = menuRoles.Select(roleId => new MenuRole
         {
-            var menuRoles = roleIds.Select(roleId => new MenuRole
-            {
-                MenuId = menuId,
-                RoleId = Guid.Parse(roleId),
-            }).ToList();
+            MenuId = menuId,
+            RoleId = Guid.Parse(roleId),
+        }).ToList();
 
-            await _context.MenuRoles.AddRangeAsync(menuRoles);
-        }
+        await _context.MenuRoles.AddRangeAsync(roles);
     }
 
-    public async Task UpdateMenuTreeAsync(int dragKey, int dropKey, int dropPosition)
+    public async Task UpdateMenuTreeAsync(int id, int parent, Boolean dropToGap, int dropKey, int dropPosition)
     {
-        var menu = await _context.Menus.Where(menu => menu.Id == dragKey).FirstAsync();
-        menu.ParentId = dropKey;
-        menu.Order = dropPosition;
+        var draggedMenu = await _context.Menus.Where(menu => menu.Id == id).FirstAsync();
+        draggedMenu.ParentId = dropToGap ? parent : dropKey;
+        draggedMenu.Order = dropPosition;
+        draggedMenu.UpdateTimestamp();
         await _context.SaveChangesAsync();
     }
 
@@ -104,6 +110,19 @@ public class MenuRepository : IMenuRepository
         }
         _context.Menus.Remove(menu);
 
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateMenuAsync(int id, Menu updateMenu, List<string>? menuRoles)
+    {
+        var menu = await FindMenuAsync(id);
+        menu.UpdateTimestamp();
+        _context.Entry(menu).CurrentValues.SetValues(updateMenu);
+        var roles = await _context.MenuRoles.Where(menuRoles => menuRoles.MenuId == id).ToListAsync();
+        if (roles != null && roles.Any())
+            _context.MenuRoles.RemoveRange(roles);
+        if (menuRoles != null && menuRoles.Any())
+            await AddRolesByMenu(id, menuRoles);
         await _context.SaveChangesAsync();
     }
 }

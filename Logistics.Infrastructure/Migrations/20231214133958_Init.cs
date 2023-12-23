@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Logistics.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,8 +22,8 @@ namespace Logistics.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     BankName = table.Column<string>(type: "varchar(20)", nullable: false),
                     BankId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -39,9 +39,9 @@ namespace Logistics.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "varchar(20)", nullable: true),
                     Phone = table.Column<string>(type: "varchar(256)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,8 +62,8 @@ namespace Logistics.Infrastructure.Migrations
                     Redirect = table.Column<string>(type: "varchar(50)", nullable: true),
                     Component = table.Column<string>(type: "varchar(50)", nullable: true),
                     HideInMenu = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,8 +82,8 @@ namespace Logistics.Infrastructure.Migrations
                     HttpMethod = table.Column<string>(type: "varchar(191)", nullable: true),
                     HttpPath = table.Column<string>(type: "text", nullable: true),
                     order = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,8 +95,8 @@ namespace Logistics.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -115,9 +115,9 @@ namespace Logistics.Infrastructure.Migrations
                     Name = table.Column<string>(type: "varchar(20)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(256)", nullable: false),
                     IdCard = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,8 +130,9 @@ namespace Logistics.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Avatar = table.Column<string>(type: "varchar(256)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp", nullable: true),
                     TokenVersion = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -161,8 +162,8 @@ namespace Logistics.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MenuId = table.Column<int>(type: "integer", nullable: false),
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -314,10 +315,10 @@ namespace Logistics.Infrastructure.Migrations
                     BankId = table.Column<int>(type: "integer", nullable: true),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     BargainerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PayAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    PayAt = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,30 +357,30 @@ namespace Logistics.Infrastructure.Migrations
                 columns: new[] { "Id", "Component", "CreatedAt", "HideInMenu", "Icon", "Name", "Order", "ParentId", "Path", "Redirect", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880), false, "crown", "系统", 0, 0, "/admin", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880) },
-                    { 2, "./Admin/Users", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880), false, null, "员工列表", 0, 1, "/admin/users", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880) },
-                    { 3, "./Admin/Menu", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, null, "菜单管理", 0, 1, "/admin/menu", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) },
-                    { 4, "./Admin/Permission", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, null, "权限管理", 0, 1, "/admin/permission", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) },
-                    { 5, "./Admin/Role", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, null, "角色管理", 0, 1, "/admin/role", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) },
-                    { 6, "./Admin/Station", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, null, "站点管理", 0, 1, "/admin/station", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) },
-                    { 7, null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, "car", "运输管理", 0, 0, "/transport", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) },
-                    { 8, "./Transport/Invoices", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890), false, null, "发票管理", 0, 7, "/transport/invoices", null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890) }
+                    { 1, null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550), false, "crown", "系统", 0, 0, "/admin", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550) },
+                    { 2, "./Admin/Users", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "员工列表", 0, 1, "/admin/users", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 3, "./Admin/Menu", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "菜单管理", 0, 1, "/admin/menu", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 4, "./Admin/Permission", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "权限管理", 0, 1, "/admin/permission", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 5, "./Admin/Role", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "角色管理", 0, 1, "/admin/role", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 6, "./Admin/Station", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "站点管理", 0, 1, "/admin/station", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 7, null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, "car", "运输管理", 0, 0, "/transport", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
+                    { 8, "./Transport/Invoices", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570), false, null, "发票管理", 0, 7, "/transport/invoices", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedAt", "Name", "NormalizedName", "UpdatedAt" },
-                values: new object[] { new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b"), null, new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860), "Admin", "ADMIN", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860) });
+                values: new object[] { new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"), null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530), "Admin", "ADMIN", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530) });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "CreatedAt", "DeletedAt", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("ac444c71-c767-4247-9e12-7c987694d9da"), 0, "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif", "32713740-f8dd-43aa-85f5-7891210af0ef", new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6790), null, null, false, true, null, null, "CHEUNG", "AQAAAAIAAYagAAAAEHP2wX5FQce1oLhn4nv9Re16m5Km5INhOdGN3tTvEiW8ZnJY7N7bR9k4wJJ/wz6YxQ==", null, false, "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG", false, "cheung" });
+                columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "CreatedAt", "DeletedAt", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName" },
+                values: new object[] { new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"), 0, "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif", "32713740-f8dd-43aa-85f5-7891210af0ef", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420), null, null, false, true, null, null, "CHEUNG", "AQAAAAIAAYagAAAAEHP2wX5FQce1oLhn4nv9Re16m5Km5INhOdGN3tTvEiW8ZnJY7N7bR9k4wJJ/wz6YxQ==", null, false, "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG", false, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420), "cheung" });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b"), new Guid("ac444c71-c767-4247-9e12-7c987694d9da") });
+                values: new object[] { new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"), new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuRoles_MenuId",

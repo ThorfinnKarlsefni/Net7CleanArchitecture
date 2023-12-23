@@ -1,8 +1,6 @@
-﻿using System;
-using Logistics.Domain;
+﻿using Logistics.Domain;
 using Logistics.Domain.Entities;
 using Logistics.Domain.Entities.Identity;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +20,8 @@ namespace Logistics.Infrastructure.Data
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuRole> MenuRoles { get; set; }
+
+        public DbSet<Permission> Permission { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

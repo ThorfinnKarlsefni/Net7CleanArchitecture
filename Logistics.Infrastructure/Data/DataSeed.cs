@@ -44,8 +44,8 @@ public static class DataSeed
               Id = roleId,
               Name = "Admin",
               NormalizedName = "ADMIN",
-              CreatedAt = DateTime.UtcNow,
-              UpdatedAt = DateTime.UtcNow,
+              CreatedAt = DateTime.Now,
+              UpdatedAt = DateTime.Now,
           });
     }
 
@@ -67,7 +67,7 @@ public static class DataSeed
                 Id = 1,
                 Path = "/admin",
                 Name = "系统",
-                Icon = "crown",
+                // Icon = "crown",
             },
              new Menu { Id = 2, ParentId = 1, Path = "/admin/users", Name = "员工列表", Component = "./Admin/Users" },
             new Menu { Id = 3, ParentId = 1, Path = "/admin/menu", Name = "菜单管理", Component = "./Admin/Menu" },
@@ -79,9 +79,9 @@ public static class DataSeed
                 Id = 7,
                 Path = "/transport",
                 Name = "运输管理",
-                Icon = "car",
+                // Icon = "car",
             },
-            new Menu { Id = 8, ParentId = 7, Path = "/transport/invoices", Name = "发票管理", Component = "./Transport/Invoices" }
+            new Menu { Id = 8, ParentId = 7, Path = "/transport/invoices", Name = "收货开票", Component = "./Transport/Invoices" }
         );
     }
 }

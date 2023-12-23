@@ -15,8 +15,8 @@
         {
             BankName = bankName;
             BankId = bankId;
-            CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = CreatedAt;
         }
     }
 }

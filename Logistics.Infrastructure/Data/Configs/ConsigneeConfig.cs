@@ -11,6 +11,9 @@ namespace Logistics.Infrastructure.Data.Configs
         {
             builder.Property(c => c.Name).HasColumnType("varchar(20)");
             builder.Property(c => c.Phone).HasColumnType("varchar(256)");
+            builder.Property(c => c.CreatedAt).HasColumnType("timestamp");
+            builder.Property(c => c.UpdatedAt).HasColumnType("timestamp");
+            builder.Property(c => c.DeletedAt).HasColumnType("timestamp");
         }
     }
 }

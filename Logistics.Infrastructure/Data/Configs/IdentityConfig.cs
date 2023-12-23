@@ -13,6 +13,9 @@ namespace Logistics.Infrastructure.Data.Configs
             {
                 builder.ToTable("Users").Property(u => u.TokenVersion).HasDefaultValue(0);
                 builder.Property(u => u.Avatar).HasColumnType("varchar(256)");
+                builder.Property(u => u.CreatedAt).HasColumnType("timestamp");
+                builder.Property(u => u.DeletedAt).HasColumnType("timestamp");
+                builder.Property(u => u.UpdatedAt).HasColumnType("timestamp");
             }
         }
 
@@ -21,6 +24,8 @@ namespace Logistics.Infrastructure.Data.Configs
             public void Configure(EntityTypeBuilder<Role> builder)
             {
                 builder.ToTable("Roles");
+                builder.Property(r => r.CreatedAt).HasColumnType("timestamp");
+                builder.Property(r => r.UpdatedAt).HasColumnType("timestamp");
             }
         }
 

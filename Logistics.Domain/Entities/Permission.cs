@@ -8,7 +8,7 @@ public class Permission
     public string? Slug { get; set; }
     public string? HttpMethod { get; set; }
     public string? HttpPath { get; set; }
-    public int order { get; set; } = 0;
+    public int Order { get; set; } = 0;
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

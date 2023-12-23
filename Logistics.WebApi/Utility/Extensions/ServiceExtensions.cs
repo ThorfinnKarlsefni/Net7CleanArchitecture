@@ -23,6 +23,7 @@ namespace Logistics.WebApi.Utility.Extensions
             services.AddScoped<IBankRepository, BankRepository>();
             services.AddScoped<IWaybillRepository, WaybillRepository>();
             services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
         }
 
         public static void AddCustomServices(this IServiceCollection services)

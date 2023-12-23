@@ -16,8 +16,8 @@
         {
             Name = name;
             Phone = phone;
-            CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = CreatedAt;
         }
     }
 }

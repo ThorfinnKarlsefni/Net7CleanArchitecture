@@ -53,8 +53,8 @@ namespace Logistics.Domain.Entities
         public Waybill()
         {
             WaybillId = Guid.NewGuid();
-            CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = CreatedAt;
         }
     }
 }

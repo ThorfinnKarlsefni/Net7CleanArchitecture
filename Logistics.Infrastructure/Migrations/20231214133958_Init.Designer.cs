@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Logistics.Infrastructure.Migrations
 {
     [DbContext(typeof(XhwtDbContext))]
-    [Migration("20231115103751_Initial")]
-    partial class Initial
+    [Migration("20231214133958_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,13 +41,13 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -63,10 +63,10 @@ namespace Logistics.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Name")
                         .HasColumnType("varchar(20)");
@@ -76,7 +76,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -94,7 +94,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -105,7 +105,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -118,11 +118,11 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b"),
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860),
+                            Id = new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530),
                             Name = "Admin",
                             NormalizedName = "ADMIN",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6860)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530)
                         });
                 });
 
@@ -167,10 +167,10 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -213,6 +213,9 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -231,11 +234,11 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ac444c71-c767-4247-9e12-7c987694d9da"),
+                            Id = new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"),
                             AccessFailedCount = 0,
                             Avatar = "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif",
                             ConcurrencyStamp = "32713740-f8dd-43aa-85f5-7891210af0ef",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6790),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420),
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedUserName = "CHEUNG",
@@ -244,6 +247,7 @@ namespace Logistics.Infrastructure.Migrations
                             SecurityStamp = "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG",
                             TokenVersion = 0L,
                             TwoFactorEnabled = false,
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420),
                             UserName = "cheung"
                         });
                 });
@@ -310,8 +314,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("ac444c71-c767-4247-9e12-7c987694d9da"),
-                            RoleId = new Guid("a7cf1c41-4fc1-4bb3-81c8-7e871eeb629b")
+                            UserId = new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"),
+                            RoleId = new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b")
                         });
                 });
 
@@ -343,10 +347,10 @@ namespace Logistics.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("IdCard")
                         .HasColumnType("text");
@@ -360,7 +364,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -403,13 +407,13 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<Guid?>("CreatorId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<decimal?>("DeliveryFee")
                         .HasColumnType("numeric");
@@ -427,7 +431,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("PayAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -445,7 +449,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<float?>("Volume")
                         .HasColumnType("real");
@@ -480,7 +484,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<bool>("HideInMenu")
                         .HasColumnType("boolean");
@@ -503,8 +507,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<string>("Redirect")
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -514,98 +518,98 @@ namespace Logistics.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550),
                             HideInMenu = false,
                             Icon = "crown",
                             Name = "系统",
                             Order = 0,
                             ParentId = 0,
                             Path = "/admin",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550)
                         },
                         new
                         {
                             Id = 2,
                             Component = "./Admin/Users",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Name = "员工列表",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/users",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6880)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 3,
                             Component = "./Admin/Menu",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Name = "菜单管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/menu",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 4,
                             Component = "./Admin/Permission",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Name = "权限管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/permission",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 5,
                             Component = "./Admin/Role",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Name = "角色管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/role",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 6,
                             Component = "./Admin/Station",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Name = "站点管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/station",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
                             HideInMenu = false,
                             Icon = "car",
                             Name = "运输管理",
                             Order = 0,
                             ParentId = 0,
                             Path = "/transport",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
                         },
                         new
                         {
                             Id = 8,
                             Component = "./Transport/Invoices",
-                            CreatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890),
+                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570),
                             HideInMenu = false,
                             Name = "发票管理",
                             Order = 0,
                             ParentId = 7,
                             Path = "/transport/invoices",
-                            UpdatedAt = new DateTime(2023, 11, 15, 10, 37, 51, 564, DateTimeKind.Utc).AddTicks(6890)
+                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570)
                         });
                 });
 
@@ -618,7 +622,7 @@ namespace Logistics.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<int>("MenuId")
                         .HasColumnType("integer");
@@ -627,7 +631,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.HasKey("Id");
 
@@ -647,7 +651,7 @@ namespace Logistics.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("HttpMethod")
                         .HasColumnType("varchar(191)");
@@ -665,7 +669,7 @@ namespace Logistics.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp");
 
                     b.Property<int>("order")
                         .HasColumnType("integer");

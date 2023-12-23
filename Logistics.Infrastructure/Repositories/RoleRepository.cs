@@ -51,7 +51,6 @@ namespace Logistics.Infrastructure.Repositories
         {
             //int skipCount = (page - 1) * pageSize;
             return await _roleManager.Roles
-              .AsQueryable()
               .ToListAsync();
             //.Skip(skipCount)
             //.Take(pageSize)

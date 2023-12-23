@@ -5,11 +5,14 @@ namespace Logistics.Domain;
 
 public interface IMenuRepository
 {
-    Task<ICollection<Menu>> GetMenuTreeAsync();
-    Task<ICollection<Menu>> GetMenuListByUserIdAsync(string userId);
+    Task<Menu> FindMenuAsync(int id);
+    Task<List<Menu>> GetMenuListAsync();
+    Task<List<Menu>> GetMenuListByUserIdAsync(string userId);
+    Task<ICollection<Menu>> GetMenuPathListAsync();
     Task<Menu?> GetMenuByPathAsync(string path);
-    Task AddMenuAsync(Menu menu, List<string>? rolesId);
-    Task UpdateMenuTreeAsync(int dragKey, int dropKey, int dropPosition);
+    Task AddMenuAsync(Menu menu, List<string>? menuRoles);
+    Task UpdateMenuAsync(int id, Menu updateMenu, List<string>? menuRoles);
+    Task UpdateMenuTreeAsync(int id, int parent, Boolean dropToGap, int dropKey, int dropPosition);
     Task UpdateMenuVisibilityAsync(int id);
     Task DeleteAsync(int id);
 }

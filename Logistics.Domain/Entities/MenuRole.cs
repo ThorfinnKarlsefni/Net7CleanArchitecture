@@ -16,7 +16,7 @@ public class MenuRole
 
     public MenuRole()
     {
-        CreatedAt = DateTime.UtcNow;
-        UpdatedAt = DateTime.UtcNow;
+        CreatedAt = DateTime.Now;
+        UpdatedAt = CreatedAt;
     }
 }

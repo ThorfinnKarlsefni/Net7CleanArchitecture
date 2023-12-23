@@ -19,7 +19,7 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<MenuListDto>>? Get()
+    public async Task<List<MenuListDto>>? GetMenus()
     {
         var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId == null)
@@ -31,7 +31,7 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<MenuItemDto> Get(int id)
+    public async Task<MenuItemDto> GetMenu(int id)
     {
         var menu = await _menuRepository.FindMenuAsync(id);
         return _mapper.Map<MenuItemDto>(menu);
@@ -64,14 +64,13 @@ public class MenuController : ControllerBase
     public async Task<List<MenuTreeDto?>> Tree()
     {
         var allMenus = await _menuRepository.GetMenuListAsync();
-        // var rootMenus = await BuildRootMenuAsync(allMenus);
         return _mapper.Map<List<MenuTreeDto?>>(await BuildRootMenuAsync(allMenus));
     }
 
-    [HttpGet("PathList")]
-    public async Task<List<MenuPathListDto>> PathList()
+    [HttpGet("Permission/menus")]
+    public async Task<List<MenuListDto?>> PathList()
     {
-        return _mapper.Map<List<MenuPathListDto>>(await _menuRepository.GetMenuPathListAsync());
+        return _mapper.Map<List<MenuListDto?>>(await _menuRepository.GetMenuPathListAsync());
     }
 
     [HttpPut("Tree/{id}")]

@@ -15,11 +15,16 @@ public class Menu
     public ICollection<MenuRole>? MenuRoles { get; set; }
     public ICollection<Menu>? Children { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
     public Menu()
     {
-        CreatedAt = DateTime.UtcNow;
-        UpdatedAt = DateTime.UtcNow;
+        CreatedAt = DateTime.Now;
+        UpdatedAt = CreatedAt;
+    }
+
+    public void UpdateTimestamp()
+    {
+        UpdatedAt = DateTime.Now;
     }
 }

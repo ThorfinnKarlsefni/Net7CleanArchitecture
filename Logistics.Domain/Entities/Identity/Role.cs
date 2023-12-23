@@ -12,8 +12,8 @@ namespace Logistics.Domain.Entities.Identity
 
         public Role()
         {
-            CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = CreatedAt;
         }
     }
 }
