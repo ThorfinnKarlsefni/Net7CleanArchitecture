@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Logistics.Infrastructure.Migrations
 {
     [DbContext(typeof(XhwtDbContext))]
-    [Migration("20231214133958_Init")]
+    [Migration("20231227051821_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -118,11 +118,11 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"),
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530),
+                            Id = new Guid("9fa56591-8646-4caa-a7ed-7d421fe170e1"),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2800),
                             Name = "Admin",
                             NormalizedName = "ADMIN",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2800)
                         });
                 });
 
@@ -234,11 +234,11 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"),
+                            Id = new Guid("682adedc-4888-461e-ab81-4b988a117252"),
                             AccessFailedCount = 0,
                             Avatar = "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif",
                             ConcurrencyStamp = "32713740-f8dd-43aa-85f5-7891210af0ef",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2700),
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedUserName = "CHEUNG",
@@ -247,7 +247,7 @@ namespace Logistics.Infrastructure.Migrations
                             SecurityStamp = "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG",
                             TokenVersion = 0L,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420),
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2700),
                             UserName = "cheung"
                         });
                 });
@@ -314,8 +314,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"),
-                            RoleId = new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b")
+                            UserId = new Guid("682adedc-4888-461e-ab81-4b988a117252"),
+                            RoleId = new Guid("9fa56591-8646-4caa-a7ed-7d421fe170e1")
                         });
                 });
 
@@ -518,98 +518,96 @@ namespace Logistics.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2820),
                             HideInMenu = false,
-                            Icon = "crown",
                             Name = "系统",
                             Order = 0,
                             ParentId = 0,
                             Path = "/admin",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2820)
                         },
                         new
                         {
                             Id = 2,
                             Component = "./Admin/Users",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830),
                             HideInMenu = false,
                             Name = "员工列表",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/users",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830)
                         },
                         new
                         {
                             Id = 3,
                             Component = "./Admin/Menu",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830),
                             HideInMenu = false,
                             Name = "菜单管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/menu",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830)
                         },
                         new
                         {
                             Id = 4,
                             Component = "./Admin/Permission",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830),
                             HideInMenu = false,
                             Name = "权限管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/permission",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830)
                         },
                         new
                         {
                             Id = 5,
                             Component = "./Admin/Role",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830),
                             HideInMenu = false,
                             Name = "角色管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/role",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830)
                         },
                         new
                         {
                             Id = 6,
                             Component = "./Admin/Station",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840),
                             HideInMenu = false,
                             Name = "站点管理",
                             Order = 0,
                             ParentId = 1,
                             Path = "/admin/station",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840),
                             HideInMenu = false,
-                            Icon = "car",
                             Name = "运输管理",
                             Order = 0,
                             ParentId = 0,
                             Path = "/transport",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840)
                         },
                         new
                         {
                             Id = 8,
                             Component = "./Transport/Invoices",
-                            CreatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570),
+                            CreatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840),
                             HideInMenu = false,
-                            Name = "发票管理",
+                            Name = "收货开票",
                             Order = 0,
                             ParentId = 7,
                             Path = "/transport/invoices",
-                            UpdatedAt = new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570)
+                            UpdatedAt = new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840)
                         });
                 });
 
@@ -662,7 +660,13 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("ParentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("PermissionId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Slug")
@@ -671,10 +675,9 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp");
 
-                    b.Property<int>("order")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("Permission");
                 });
@@ -778,6 +781,13 @@ namespace Logistics.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("Logistics.Domain.Permission", b =>
+                {
+                    b.HasOne("Logistics.Domain.Permission", null)
+                        .WithMany("Children")
+                        .HasForeignKey("PermissionId");
+                });
+
             modelBuilder.Entity("Logistics.Domain.Entities.Bank", b =>
                 {
                     b.Navigation("Waybills");
@@ -808,6 +818,11 @@ namespace Logistics.Infrastructure.Migrations
             modelBuilder.Entity("Logistics.Domain.Menu", b =>
                 {
                     b.Navigation("MenuRoles");
+                });
+
+            modelBuilder.Entity("Logistics.Domain.Permission", b =>
+                {
+                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

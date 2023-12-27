@@ -81,13 +81,19 @@ namespace Logistics.Infrastructure.Migrations
                     Slug = table.Column<string>(type: "text", nullable: true),
                     HttpMethod = table.Column<string>(type: "varchar(191)", nullable: true),
                     HttpPath = table.Column<string>(type: "text", nullable: true),
-                    order = table.Column<int>(type: "integer", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    PermissionId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permission", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Permission_Permission_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permission",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -357,30 +363,30 @@ namespace Logistics.Infrastructure.Migrations
                 columns: new[] { "Id", "Component", "CreatedAt", "HideInMenu", "Icon", "Name", "Order", "ParentId", "Path", "Redirect", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550), false, "crown", "系统", 0, 0, "/admin", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9550) },
-                    { 2, "./Admin/Users", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "员工列表", 0, 1, "/admin/users", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 3, "./Admin/Menu", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "菜单管理", 0, 1, "/admin/menu", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 4, "./Admin/Permission", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "权限管理", 0, 1, "/admin/permission", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 5, "./Admin/Role", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "角色管理", 0, 1, "/admin/role", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 6, "./Admin/Station", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, null, "站点管理", 0, 1, "/admin/station", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 7, null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560), false, "car", "运输管理", 0, 0, "/transport", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9560) },
-                    { 8, "./Transport/Invoices", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570), false, null, "发票管理", 0, 7, "/transport/invoices", null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9570) }
+                    { 1, null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2820), false, null, "系统", 0, 0, "/admin", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2820) },
+                    { 2, "./Admin/Users", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830), false, null, "员工列表", 0, 1, "/admin/users", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830) },
+                    { 3, "./Admin/Menu", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830), false, null, "菜单管理", 0, 1, "/admin/menu", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830) },
+                    { 4, "./Admin/Permission", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830), false, null, "权限管理", 0, 1, "/admin/permission", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830) },
+                    { 5, "./Admin/Role", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830), false, null, "角色管理", 0, 1, "/admin/role", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2830) },
+                    { 6, "./Admin/Station", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840), false, null, "站点管理", 0, 1, "/admin/station", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840) },
+                    { 7, null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840), false, null, "运输管理", 0, 0, "/transport", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840) },
+                    { 8, "./Transport/Invoices", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840), false, null, "收货开票", 0, 7, "/transport/invoices", null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2840) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedAt", "Name", "NormalizedName", "UpdatedAt" },
-                values: new object[] { new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"), null, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530), "Admin", "ADMIN", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9530) });
+                values: new object[] { new Guid("9fa56591-8646-4caa-a7ed-7d421fe170e1"), null, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2800), "Admin", "ADMIN", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2800) });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "CreatedAt", "DeletedAt", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName" },
-                values: new object[] { new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b"), 0, "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif", "32713740-f8dd-43aa-85f5-7891210af0ef", new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420), null, null, false, true, null, null, "CHEUNG", "AQAAAAIAAYagAAAAEHP2wX5FQce1oLhn4nv9Re16m5Km5INhOdGN3tTvEiW8ZnJY7N7bR9k4wJJ/wz6YxQ==", null, false, "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG", false, new DateTime(2023, 12, 14, 21, 39, 58, 560, DateTimeKind.Local).AddTicks(9420), "cheung" });
+                values: new object[] { new Guid("682adedc-4888-461e-ab81-4b988a117252"), 0, "http://avatar.xhwt56.com/5eaf95c210fa76978d58fec9b9d9e8ba.avif", "32713740-f8dd-43aa-85f5-7891210af0ef", new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2700), null, null, false, true, null, null, "CHEUNG", "AQAAAAIAAYagAAAAEHP2wX5FQce1oLhn4nv9Re16m5Km5INhOdGN3tTvEiW8ZnJY7N7bR9k4wJJ/wz6YxQ==", null, false, "G4UUUI4DO6ORH4NZUEM7FT3NJVBUUEQG", false, new DateTime(2023, 12, 27, 13, 18, 21, 688, DateTimeKind.Local).AddTicks(2700), "cheung" });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("4f0a35f2-72c0-4928-8ebb-23647c3f807b"), new Guid("4ee30eb7-4985-4e2c-a4fd-511d9c56717b") });
+                values: new object[] { new Guid("9fa56591-8646-4caa-a7ed-7d421fe170e1"), new Guid("682adedc-4888-461e-ab81-4b988a117252") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuRoles_MenuId",
@@ -391,6 +397,11 @@ namespace Logistics.Infrastructure.Migrations
                 name: "IX_MenuRoles_RoleId",
                 table: "MenuRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permission_PermissionId",
+                table: "Permission",
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaim_RoleId",

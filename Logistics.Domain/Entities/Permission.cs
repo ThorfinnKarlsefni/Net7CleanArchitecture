@@ -9,6 +9,7 @@ public class Permission
     public string? HttpMethod { get; set; }
     public string? HttpPath { get; set; }
     public int Order { get; set; } = 0;
+    public ICollection<Permission>? Children { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Logistics.Domain;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.AspNetCore.Mvc;
 using static Logistics.WebApi.PermissionRequest;
 
@@ -26,17 +26,26 @@ public class PermissionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] PermissionAddRequest req)
+    public async Task<IActionResult> AddAsync([FromBody] PermissionAddAndUpdateRequest req)
     {
-        var permission = new Permission
-        {
-            ParentId = req.ParentId ?? null,
-            HttpMethod = string.Join(",", req.HttpMethod),
-            HttpPath = string.Join(",", req.HttpPath),
-            Name = req.Name
-        };
-
+        var permission = _mapper.Map<Permission>(req);
         await _permissionRepository.AddPermissionAsync(permission);
         return Ok();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAsync(int id, [FromBody] PermissionAddAndUpdateRequest req)
+    {
+        var permission = _mapper.Map<Permission>(req);
+        permission.Id = id;
+        await _permissionRepository.UpdatePermissionAsync(permission);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        await _permissionRepository.DeletePermissionAsync(id);
+        return NoContent();
     }
 }

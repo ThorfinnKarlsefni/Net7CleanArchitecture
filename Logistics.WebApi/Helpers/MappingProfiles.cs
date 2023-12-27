@@ -3,6 +3,7 @@ using Logistics.Domain;
 using Logistics.Domain.Entities;
 using Logistics.WebApi.Dto;
 using static Logistics.WebApi.MenuRequest;
+using static Logistics.WebApi.PermissionRequest;
 
 namespace Logistics.WebApi.Helpers
 {
@@ -19,6 +20,9 @@ namespace Logistics.WebApi.Helpers
 
             CreateMap<Consignee, ConsigneeDto>();
             CreateMap<Permission, PermissionListDto>();
+            CreateMap<PermissionAddAndUpdateRequest, Permission>()
+                .ForMember(dest => dest.HttpMethod, opt => opt.MapFrom(src => string.Join(",", src.HttpMethod)))
+                .ForMember(dest => dest.HttpPath, opt => opt.MapFrom(src => string.Join(",", src.HttpPath)));
         }
     }
 }
